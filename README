@@ -1,0 +1,21 @@
+offYerBack is designed to be placed into the directory of a completed cMonkey run. The goal of offYerBack is to provide a simple package that can be placed into a cMonkey run and in a self contained manner collect all the necessary post-processing information. It runs a suite of post processing tools that provide a comprehensive spreadsheet with valuable information. This version should work with minimal effort on either human or mouse cMonkey runs. The version in github is set for human runs, but with mimimal effort it can be altered to run on mouse (details below).
+
+It relies upon the proper installation of Python (at least 2.7), MEME suite of tools (http://meme.nbcr.net/meme/doc/install.html), WEEDER (http://159.149.160.51/modtools/), and R (http://cran.r-project.org/).
+
+It also requires certain input files for the post-processing to be run appropriately. The location of these files has been divided up based on the type of input into directories inside the offYerBack distribution:
+
+- expression:  conatins one file which has expression for all genes assayed in microarray or RNA-seq experiment, used to get TF expression profiles for correlating with bicluster eigengenes.
+
+- FreqFiles:  contains the WEEDER background distribution files.
+
+- funcEnrichment:  contains R scripts for doing functional enrichment anlayses with GO biological process terms (enrichment.R), and matching the GOBP terms to hallmarks of some biological process such as cancer (goSimHallmarksOfCancer.R).  These need to be modified so that they have the proper gene identifiers (enrichment.R) and that the biological processes of note are identified with their respective exemplary GOBP terms (goSimHallmarksOfCancer.R).
+
+- miRNA:  contains lists of all miRNA in human or mouse (hsa or mmu.mature.fa), the full miRBase database (mature.fa.gz), and the set enrichment sets from the cMonkey run (truncated examples from PITA and TargetScan are shown).
+
+- motifs:  contains Python pickle (pkl) files of databases of known TF motifs. As an example we have provided the JASPAR database (http://jaspar.genereg.net/) in pkl format. We typically also include TransFac, Uniprobe, and SELEX motifs from Jolma, et al. 2013.
+
+- seqs:  contains regulatory sequences for all useful regulatory regions that will be searched using de novo motif detection. Also includes bgFile.meme which is the background file for MEME, and nucFreqs.csv which is the genome background nucleotide frequencies. We provide two truncated example sequence files. They are typically CSV and gzipped to reduce size.
+
+- TF:  contains lists of all TFs in humans or mice (human or mouseTFs_all.csv), the sets used in set enrichment (truncated examples from our home cooked database TFBS_DB are shown), and finally TF families (tfFamilies.csv).
+
+To convert the human version to mouse requires modifying a few different file pointers. Searching based on human or HS will discover most of these instances. The underlying sequences need to be changed. [A more through documentation will be provided soon.]
